@@ -1,5 +1,5 @@
 # JPL-Horizons-comet-database
-a stupid 2-step script to import the orbital elements database of comets from JPL-Horizons and do some stupid things with it, such calculate the Tisserand parameter and doing some useful plots to visualize the different families fo comets
+a stupid 2-step MATLAB script for importing the orbital elements database of comets from JPL-Horizons and do some stupid things with it, such calculate the Tisserand parameter and doing some useful plots to visualize the different families fo comets (if you know where to look)
 
 # How to use
 execute "import_JPL_horizon_orbital_url.m"
