@@ -29,7 +29,7 @@ ELEMENTS.Semimaior_axis = a;
 ELEMENTS.Properties.VariableNames{10} = 'Semi-major axis (UA)';
 ELEMENTS = movevars(ELEMENTS,"Semi-major axis (UA)",'After',"Perihelion (AU)");
 
-%preview histogram SPC // note the peaks araound Jupiter and Saturn...
+%preview semi-maior axis histogram SPC
 histogram(ELEMENTS{:,4},75,'BinLimits',[0,35])
 
 idx = (ELEMENTS{:,4} > 0 ) & (ELEMENTS{:,4} <= 34.2);
@@ -82,11 +82,23 @@ SPC.Properties.VariableNames{12} = 'Period (years)';
 SPC = movevars(SPC,"Period (years)",'After',"Num_Name");
 %plot period vs. Tisserand
 scatter(SPC{:,2},SPC{:,8})
+%calculate the aphelion for the SPCs and prints an histogram of it
+Aphelion = zeros(i,1);
+for c = 1:i
+    Aphelion(c) = pSPC(c)*((1+eSPC(c))/(1-eSPC(c)));
+end
 
-%create tables of JFCs and HFCs from the orbital period, not the Tisserand
+SPC.period = Aphelion;
+SPC.Properties.VariableNames{13} = 'Aphelion (UA)';
+SPC = movevars(SPC,"Aphelion (UA)",'After',"Perihelion (AU)");
+
+%histogram of aphelions for SPC //note the peaks around Jupiter and Saturn...
+histogram(SPC{:,5},75,'BinLimits',[0,12])
+
+%create tables of JFCs and HTCs from the orbital period, not the Tisserand
 %parameter
 idx = (SPC{:,2} > 0 ) & (SPC{:,2} <= 20);
 JFC = SPC(idx,:);
 
 idx = (SPC{:,2} > 20 ) & (SPC{:,2} <= 200);
-HFC = SPC(idx,:);
+HTC = SPC(idx,:);
