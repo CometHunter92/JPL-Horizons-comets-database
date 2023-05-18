@@ -82,6 +82,21 @@ SPC.Properties.VariableNames{12} = 'Period (years)';
 SPC = movevars(SPC,"Period (years)",'After',"Num_Name");
 %plot period vs. Tisserand
 scatter(SPC{:,2},SPC{:,8})
+%plot period vs. inclination with color based on the Tisserand parameter
+
+gT = zeros(i,1);
+gT = categorical(gT);
+for c = 1:i
+    if (Tisserand(c) >= 2) & (Tisserand(c) < 3.15)
+        gT(c) = categorical({'T between 2 and 3'});
+    elseif (Tisserand(c) < 2)
+        gT(c) = categorical({'T < 2'});
+    else
+        gT(c) = categorical({'T >> 3'});
+    end
+end
+
+gscatter(SPC{:,2},SPC{:,7},gT,[0.4940 0.1840 0.5560; 0.4660 0.6740 0.1880;0.9290 0.6940 0.1250],[],10,'on','Period (years)','Inclination (degrees)')
 %calculate the aphelion for the SPCs and prints an histogram of it
 Aphelion = zeros(i,1);
 for c = 1:i
