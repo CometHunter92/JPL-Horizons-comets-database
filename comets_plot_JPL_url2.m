@@ -53,7 +53,7 @@ aSPC = SPC.(4)(:,:);
 eSPC = SPC.(5)(:,:);
 pSPC = SPC.(3)(:,:);
 iSPC = SPC.(6)(:,:);
-aJ = 5.2038;
+aJ = 5.2029;
 
 for c = 1:i
     %%TisserandA(c) = 5.2038/SPC{c,"Semi-major axis (UA)"} + 2*(((SPC{c,"Perihelion distance (AU)"}/5.2038)*(2-(SPC{c,"Perihelion distance (AU)"}/SPC{c,"Semi-major axis (UA)"})))^1/2) * cosd(SPC{c,"Inclination in degrees, J2000.0 (degrees)"});
@@ -109,6 +109,7 @@ SPC = movevars(SPC,"Aphelion (UA)",'After',"Perihelion (AU)");
 
 %histogram of aphelions for SPC //note the peaks around Jupiter and Saturn...
 histogram(SPC{:,5},75,'BinLimits',[0,12])
+xline([5.2029 9.5367],'r',{'Jupiter';'Saturn'})
 
 %create tables of JFCs and HTCs from the orbital period, not the Tisserand
 %parameter
