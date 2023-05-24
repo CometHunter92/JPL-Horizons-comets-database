@@ -90,7 +90,7 @@ gT = zeros(i,1);
 gT = categorical(gT);
 for c = 1:i
     if (Tisserand(c) >= 2) & (Tisserand(c) < 3.15)
-        gT(c) = categorical({'T between 2 and 3'});
+        gT(c) = categorical({'2 ≤ T ≤ 3'});
     elseif (Tisserand(c) < 2)
         gT(c) = categorical({'T < 2'});
     else
@@ -112,8 +112,19 @@ SPC = movevars(SPC,"Aphelion (UA)",'After',"Perihelion (AU)");
 
 %histogram of aphelions for SPC //note the peaks around Jupiter and Saturn...
 histogram(SPC{:,5},75,'BinLimits',[0,12])
-xline([5.2029 9.5367],'r',{'Jupiter';'Saturn'})
+xline([5.2029 9.5367],'r',{'Jupiter';'Saturn'},'LineWidth',1)
 xlim([0 12]);
+xlabel('Aphelion (UA)');
+ylabel('Frequency')
+hold on
+pd_kernel = fitdist(SPC{:,5},'Kernel')
+x = 0:0.5:12;
+pdf_kernel = pdf(pd_kernel,x);
+yyaxis right
+ylabel('Probability density','rotation',270,VerticalAlignment='baseline')
+plot(x,pdf_kernel,'Color','r','LineWidth',0.1)
+ylim([0,0.3])
+hold off
 
 %create tables of JFCs and HTCs from the orbital period, not the Tisserand
 %parameter
