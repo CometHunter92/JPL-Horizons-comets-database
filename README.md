@@ -11,5 +11,5 @@ watch the plots (lol) and explore the JFC and HFC tables created<br>
 # To do
 better plots with axis legend, some notable comets highlighted, less stupid graphic choice for better readability;<br>
 include some manipulations for the LPC (Long Period Comets);<br>
-adding the Encke family?/correcting the Main Belt Comets thing (lol)<br>
+add the Encke family?/remove the Main Belt Comets thing (lol)<br>
 getting rid of the "live script" format and reformat the plotting code to show all the graphs when executing the .m file<br>
