@@ -12,6 +12,8 @@ perihelion = ELEMENTS.(3)(:,:);
 
 eccentricity = ELEMENTS.(4)(:,:);
 
+%inclination = ELEMENTS.(6)(:,:);
+
 i = size(perihelion);
 a = zeros(i);
 
@@ -112,17 +114,17 @@ SPC = movevars(SPC,"Aphelion (UA)",'After',"Perihelion (AU)");
 
 %histogram of aphelions for SPC //note the peaks around Jupiter and Saturn...
 histogram(SPC{:,5},75,'BinLimits',[0,12])
-xline([5.2029 9.5367],'r',{'Jupiter';'Saturn'},'LineWidth',1)
+xline([5.2029 9.5367],'r',{'Jupiter';'Saturn'},'LineWidth',1.5)
 xlim([0 12]);
 xlabel('Aphelion (UA)');
 ylabel('Frequency')
 hold on
 pd_kernel = fitdist(SPC{:,5},'Kernel')
-x = 0:0.5:12;
+x = 0:0.5:12;  % dx 0.16AU (right? 12/0.5)
 pdf_kernel = pdf(pd_kernel,x);
 yyaxis right
 ylabel('Probability density','rotation',270,VerticalAlignment='baseline')
-plot(x,pdf_kernel,'Color','r','LineWidth',0.1)
+plot(x,pdf_kernel,'Color',[0.8500 0.3250 0.0980],'LineWidth',0.25)
 ylim([0,0.3])
 hold off
 
@@ -133,3 +135,24 @@ JFC = SPC(idx,:);
 
 idx = (SPC{:,2} > 20 ) & (SPC{:,2} <= 200);
 HTC = SPC(idx,:);
+%%
+%histogram of reciprocal semi-maior axis of all the comets
+%in ELEMENTS
+
+reciprocalA = 100.*(1./a);
+figure;
+histogram(reciprocalA(:),75,'BinLimits',[-2,40])
+hold on
+ylim([0 2700]);
+xlabel('1/Semi-maior Axis (UA 10^{-2})')
+ylabel('Frequency')
+xline([0.13572 2.92398 13.5721 34.1995],'r',{'20.000 years';'200 years';'20 years';'5 years'},'LineWidth',1)
+%%
+%reciprocal * 100 vs inclination
+inclination = ELEMENTS.(6)(:,:);
+figure;
+scatter(reciprocalA,inclination, ".")
+xlabel('1/Semi-maior Axis (UA 10^{-2})')
+ylabel('Inclination (degrees)')
+xlim([-2 45]);
+xline([2.92398],'r','LineWidth',1)
